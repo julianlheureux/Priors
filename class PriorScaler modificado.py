@@ -1,7 +1,7 @@
 import numpy as np
 import pymc as pm
 
-from bambi.families.univariate import Cumulative, Gaussian, StoppingRatio, StudentT, VonMises
+from bambi.families.univariate import Binomial, Cumulative, Gaussian, StoppingRatio, StudentT, VonMises
 from bambi.model_components import ConstantComponent
 from bambi.priors.prior import Prior
 
@@ -45,6 +45,8 @@ class PriorScaler:
         return mu, sigma
 
     def get_slope_sigma(self, x):
+        if isinstance(self.model.family, Binomial):
+                
         return self.STD * (self.response_std / np.std(x))
 
     def scale_response(self):
